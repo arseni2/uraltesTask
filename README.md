@@ -33,6 +33,25 @@ VITE_API_BASE_URL=http://api.favorit-parts.ru/hs/hsprice/
 VITE_API_KEY=00000000-0000-0000-0000-000000000001
 ```
 
+> Для production-сборки, публикуемой на GitHub Pages, адрес сервиса задаётся по
+> HTTPS (`https://api.favorit-parts.ru/hs/hsprice/`) — браузеры блокируют запросы
+> на HTTP со HTTPS-страниц (mixed content). В CI это делает workflow (см. ниже).
+
+## Деплой на GitHub Pages
+
+- Публикация автоматизирована workflow-ом `.github/workflows/deploy.yml`: при push
+  в `main` (или запуске вручную через `workflow_dispatch`) выполняется
+  `npm ci` → `lint` → `build`, артефакт `dist/` публикуется через `actions/deploy-pages`
+- Перед первым запуском включите Pages: **Settings → Pages → Build and deployment →
+  Source: GitHub Actions**
+- Сайт доступен по адресу `https://<username>.github.io/<repository>/` —
+  `base: "."` в `vite.config.js` делает сборку совместимой с публикацией в подкаталоге
+- По умолчанию workflow использует тестовый ключ из задания; при необходимости
+  переопределите `VITE_API_KEY` / `VITE_API_BASE_URL` в **Settings → Secrets and
+  variables → Actions**
+- Примечание: ключ API зашивается в клиентский бандл и виден в исходном коде
+  страницы — для тестового ключа задания это ожидаемо
+
 ## Структура проекта
 
 ```
