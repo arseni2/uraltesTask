@@ -1,0 +1,472 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  --app-bg: #f2f5f9;
+  --app-card-bg: #ffffff;
+  --app-card-border: #e6eaf0;
+  --app-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --app-shadow-md: 0 4px 16px rgba(16, 24, 40, 0.08);
+  --app-brand: #0d6efd;
+  --app-brand-soft: rgba(13, 110, 253, 0.1);
+  --sk-color: #e9edf2;
+}
+
+[data-bs-theme='dark'] {
+  --app-bg: #14161a;
+  --app-card-bg: #1c1f24;
+  --app-card-border: #2b3038;
+  --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --app-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --app-brand: #4d94ff;
+  --app-brand-soft: rgba(77, 148, 255, 0.16);
+  --sk-color: #262b32;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme='light']) {
+    --app-bg: #14161a;
+    --app-card-bg: #1c1f24;
+    --app-card-border: #2b3038;
+    --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --app-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --app-brand: #4d94ff;
+    --app-brand-soft: rgba(77, 148, 255, 0.16);
+    --sk-color: #262b32;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background-color: var(--app-bg);
+  transition: background-color 0.25s ease;
+}
+
+/* ---------- layout ---------- */
+
+.app-shell {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-top: clamp(1rem, 3vw, 2rem);
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+.app-card {
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
+  border-radius: 1rem;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  box-shadow: var(--app-shadow-sm);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.app-card + .app-card {
+  margin-top: 1.25rem;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: clamp(1rem, 3vw, 1.75rem);
+}
+
+.app-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex: none;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.35);
+}
+
+.app-title {
+  font-weight: 700;
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.app-subtitle {
+  color: var(--bs-secondary-color);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* theme toggle */
+
+.theme-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex: none;
+}
+
+/* stepper */
+
+.app-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.app-stepper-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--bs-secondary-color);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--app-card-border);
+  transition: all 0.2s ease;
+}
+
+.app-stepper-item .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--bs-tertiary-bg);
+  color: var(--bs-secondary-color);
+}
+
+.app-stepper-item.done {
+  color: var(--bs-success);
+  border-color: rgba(25, 135, 84, 0.4);
+}
+
+.app-stepper-item.done .step-num {
+  background: rgba(25, 135, 84, 0.15);
+  color: var(--bs-success);
+}
+
+.app-stepper-item.current {
+  color: var(--app-brand);
+  border-color: var(--app-brand);
+  background: var(--app-brand-soft);
+}
+
+.app-stepper-item.current .step-num {
+  background: var(--app-brand);
+  color: #fff;
+}
+
+.app-stepper-arrow {
+  color: var(--bs-secondary-color);
+  font-size: 0.85rem;
+}
+
+/* ---------- search ---------- */
+
+.search-input-icon {
+  color: var(--bs-secondary-color);
+}
+
+.search-input-icon + .form-control::placeholder {
+  text-transform: none;
+}
+
+.search-btn {
+  min-height: 48px;
+  min-width: 130px;
+  font-weight: 600;
+}
+
+@media (max-width: 575.98px) {
+  .search-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- brands list ---------- */
+
+.brand-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--app-card-border);
+  border-radius: 0.85rem;
+  background: var(--app-card-bg);
+  cursor: pointer;
+  text-align: left;
+  min-height: 56px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+.brand-item:hover {
+  box-shadow: var(--app-shadow-md);
+  transform: translateY(-1px);
+}
+
+.brand-item:focus-visible {
+  outline: 2px solid var(--app-brand);
+  outline-offset: 2px;
+}
+
+/* minmax(0,1fr): clamp the implicit track to the container so nowrap/truncated
+   text cannot blow it out via min-content (prevents page h-scroll on mobile) */
+.brand-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* allow the middle block to shrink so text-truncate works (else min-width:auto
+   forces the grid track to the full nowrap text width -> page h-scroll) */
+.brand-item .flex-grow-1 {
+  min-width: 0;
+}
+
+/* selected: neutral fill + thin accent stripe on the left (no colored fill) */
+.brand-item.selected {
+  background: var(--bs-tertiary-bg);
+}
+
+.brand-item.selected::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 55%;
+  border-radius: 999px;
+  background: var(--app-brand);
+}
+
+.brand-item.selected:hover {
+  box-shadow: var(--app-shadow-sm);
+  transform: none;
+}
+
+.brand-item.selected .brand-name {
+  color: var(--app-brand);
+}
+
+.brand-item.selected .brand-chevron {
+  color: var(--app-brand);
+  opacity: 0.8;
+}
+
+.brand-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.brand-name {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.brand-part {
+  font-size: 0.8rem;
+  color: var(--bs-secondary-color);
+}
+
+.brand-chevron {
+  margin-left: auto;
+  color: var(--bs-secondary-color);
+  flex: none;
+}
+
+/* ---------- offers ---------- */
+
+.offers-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  color: var(--bs-secondary-color);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.offers-summary strong {
+  color: var(--bs-emphasis-color);
+}
+
+/* let long words/tokens break so the table never overflows its container
+   (affects min-content: visible wrapping only happens when space is tight) */
+.offers-table td {
+  overflow-wrap: anywhere;
+}
+
+/* tight widths (992-1199): compact cells/headers so the 6 columns
+   fit without mid-word header breaks */
+@media (max-width: 1199.98px) {
+  .offers-table th,
+  .offers-table td {
+    padding-inline: 0.25rem;
+  }
+  .offers-table thead th {
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+.offers-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bs-tertiary-bg);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--bs-secondary-color);
+}
+
+.offers-table .cell-price {
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--bs-success);
+}
+
+.offers-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.offer-card {
+  border: 1px solid var(--app-card-border);
+  border-radius: 0.9rem;
+  padding: 0.9rem 1rem;
+  background: var(--app-card-bg);
+}
+
+.offer-card + .offer-card {
+  margin-top: 0.75rem;
+}
+
+.offer-card .offer-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--bs-success);
+  white-space: nowrap;
+}
+
+.offer-card .offer-name {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* ---------- skeletons ---------- */
+
+/* light gray placeholders, geometry mirrors the real components
+   (.brand-item for brands rows, .offer-card / table cells for offers) */
+
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 0.9rem;
+  min-height: 56px;
+  border: 1px solid var(--app-card-border);
+  border-radius: 0.85rem;
+}
+
+.skeleton-offer-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  min-height: 40px;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.skeleton-offer-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--bs-border-color);
+  background: var(--bs-tertiary-bg);
+}
+
+.skeleton-row .placeholder,
+.skeleton-offer-row .placeholder,
+.skeleton-offer-head .placeholder,
+.offer-card .placeholder {
+  background-color: var(--sk-color);
+  opacity: 1;
+}
+
+/* stagger: rows pulse with a top-to-bottom delay wave */
+.skeleton-row > *,
+.skeleton-offer-row > *,
+.skeleton-offer-head > *,
+.offer-card > * {
+  animation: skeleton-wave 1.4s ease-in-out infinite;
+  animation-delay: calc(var(--sk-idx, 0) * 90ms);
+}
+
+@keyframes skeleton-wave {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* ---------- misc ---------- */
+
+.empty-state {
+  text-align: center;
+  padding: clamp(1.5rem, 4vw, 2.5rem) 1rem;
+  color: var(--bs-secondary-color);
+}
+
+.empty-state .empty-icon {
+  font-size: 2.5rem;
+  color: var(--app-brand);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+::selection {
+  background: var(--app-brand-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
